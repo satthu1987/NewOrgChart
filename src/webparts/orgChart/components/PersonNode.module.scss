@@ -1,0 +1,42 @@
+.card {
+    display: flex;
+    align-items: center;
+    width: 220px;
+    min-height: 110px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    border-left: 10px solid #9aa0a6; // overwritten inline
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .name {
+    font-weight: 700;
+    color: #222;
+    font-size: 13px;
+  }
+  
+  .position {
+    color: #666;
+    font-size: 12px;
+  }
+  
+  .role {
+    color: #888;
+    font-size: 11px;
+    margin-top: 6px;
+  }
