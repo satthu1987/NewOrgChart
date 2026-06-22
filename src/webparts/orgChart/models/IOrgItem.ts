@@ -4,7 +4,8 @@ export interface IOrgItem {
     JobTitle?: string;
     ManagerId?: number;  // lookup internal field ManagerId
     Branch?: string;
-    PhotoURL?: string;
-    Order?: number;
-    PageURL?: string;
+    PhotoUrl?: string;
+    SortOrder?: number;
+    PageUrl?: string;
+    IsLeaf?:boolean;
   }

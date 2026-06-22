@@ -1,0 +1,72 @@
+.root {
+  font-family: "Segoe UI", Arial, sans-serif;
+  width: 100%;
+  background: #fff;
+}
+
+/* Tab bar — two equal columns side by side */
+.tabBar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: 3px solid #e0e0e0;
+}
+
+.tab {
+  flex: 1;
+  padding: 18px 32px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #999;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-bottom: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s, color 0.15s;
+  outline: none;
+  position: relative;
+  letter-spacing: 0.01em;
+
+  /* separator between tabs */
+  &:not(:last-child) {
+    border-right: 1px solid #e0e0e0;
+  }
+
+  &:hover:not(.tabActive) {
+    background: #fff3ec;
+    color: #e07030;
+  }
+}
+
+/* Active tab — white background, orange left border + bottom highlight */
+.tabActive {
+  background: #fff8f5;
+  color: #e07030;
+  font-weight: 700;
+  border-top: 3px solid #e07030;
+  border-left: 3px solid #e07030;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 3px solid #fff8f5; /* hides the tabBar bottom border */
+  z-index: 2;
+  margin-bottom: -3px; /* overlap the tabBar border */
+  align-content: center;
+}
+
+/* Chart area sits directly below tabs */
+.tabContent {
+  width: 100%;
+  min-height: 500px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  box-sizing: border-box;
+  align-content: center;
+}
+
+.status {
+  padding: 60px;
+  text-align: center;
+  color: #aaa;
+  font-size: 14px;
+}

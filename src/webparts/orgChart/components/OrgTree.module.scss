@@ -1,0 +1,62 @@
+.orgTreeRoot {
+  width: 100%;
+  height: calc(100vh - 120px);  /* fill available viewport height */
+  min-height: 1000px;
+  overflow: auto;               /* scrollbar appears when content overflows */
+  background: transparent;
+  position: relative;
+}
+
+.orgTreeRoot :global(svg) {
+  /* let SVG grow beyond container so scroll works */
+  width: auto;
+  min-width: 100%;
+  height: auto;
+  min-height: 100%;
+  display: block;
+  overflow: auto;
+}
+
+.orgTreeRoot :global(.rd3t-link) {
+  stroke: #d0d0d0;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.orgTreeRoot :global(.rd3t-node),
+.orgTreeRoot :global(.rd3t-leaf-node) {
+  cursor: default;
+}
+
+.svg {
+  width: 90%;
+  height: 100%;
+  display: block;
+  overflow: auto;
+}
+
+/* Ensure foreignObject content isn't clipped and can show the fixed-size leaf */
+.svg :global(foreignObject) {
+  overflow: hidden;
+  pointer-events: auto;
+  /* allow the child .leaf width/height to take effect */
+  display: block;
+}
+
+/* Optionally ensure the nodes group treats children consistently */
+.nodesGroup :global(foreignObject) {
+  /* keep the rendering consistent by avoiding implicit scaling */
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+/* Allow pointer events on foreignObject content */
+.orgTreeRoot :global(.rd3t-node foreignObject),
+.orgTreeRoot :global(.rd3t-leaf-node foreignObject) {
+  pointer-events: all;
+}
+
+.orgTreeRoot :global(.rd3t-node),
+.orgTreeRoot :global(.rd3t-leaf-node) {
+  pointer-events: none;   /* let foreignObject handle events, not the SVG node group */
+}

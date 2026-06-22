@@ -1,16 +1,19 @@
 import * as React from 'react';
 import { WebPartContext } from '@microsoft/sp-webpart-base';
-import { sp } from '@pnp/sp/presets/all';
+import { spfi } from "@pnp/sp";
+import { SPFx } from "@pnp/sp/presets/all";
+import "@pnp/sp/items";   
+import "@pnp/sp/lists";
 import OrgTree from './OrgTree';
 import { IOrgItem } from '../models/IOrgItem';
-import styles from './OrgChartApp.module.scss';
+import styles from './OrgChart.module.scss';
 
 export interface IOrgChartAppProps {
   listName: string;
   context: WebPartContext;
 }
 
-const OrgChartApp: React.FC<IOrgChartAppProps> = ({ listName }) => {
+const OrgChartApp: React.FC<IOrgChartAppProps> = ({ listName, context }) => {
   const [items, setItems] = React.useState<IOrgItem[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -21,10 +24,11 @@ const OrgChartApp: React.FC<IOrgChartAppProps> = ({ listName }) => {
       setLoading(true);
       setError(null);
       try {
+        const sp = spfi().using(SPFx(context));
         const raw = await sp.web.lists.getByTitle(listName)
-          .items.select('Id','Title','Position','ManagerId','Role','Photo','Order','Department')
-          .orderBy('Order', true)
-          .get();
+          .items
+          .select('Id', 'Title', 'JobTitle', 'ManagerId', 'Branch', 'PhotoUrl', 'SortOrder', 'PageUrl','IsLeaf')
+          .orderBy('SortOrder', true)();
         if (mounted) {
           setItems(raw as IOrgItem[]);
         }

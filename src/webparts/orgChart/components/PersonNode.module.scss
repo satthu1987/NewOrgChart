@@ -1,42 +1,163 @@
 .card {
-    display: flex;
-    align-items: center;
-    width: 220px;
-    min-height: 110px;
-    padding: 10px;
-    background: #fff;
-    border-radius: 8px;
-    border-left: 10px solid #9aa0a6; // overwritten inline
-    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  .info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .name {
-    font-weight: 700;
-    color: #222;
-    font-size: 13px;
-  }
-  
-  .position {
-    color: #666;
-    font-size: 12px;
-  }
-  
-  .role {
-    color: #888;
-    font-size: 11px;
-    margin-top: 6px;
-  }
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: "Segoe UI", Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Section 1: wide card — avatar left, text right */
+.section1 {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  height: 100%;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.avatarWrap {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatarImg {
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+.avatarPlaceholder {
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+}
+
+.info { flex: 1 1 auto; overflow: hidden; }
+
+.name {
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.title {
+  margin-top: 3px;
+  font-size: 9.5px;
+  color: rgba(255,255,255,0.82);
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Section 2: square card — avatar top, text below */
+.section2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 6px 6px;
+  height: 100%;
+  gap: 5px;
+  box-sizing: border-box;
+}
+
+.avatarTop { width: 52px; height: 52px; flex: 0 0 52px; }
+
+.avatarImgTop {
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+.avatarPlaceholderTop {
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+}
+
+.infoCenter { text-align: center; overflow: hidden; }
+
+.nameCenter {
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 1.15;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.titleCenter {
+  margin-top: 2px;
+  font-size: 8.5px;
+  color: rgba(255,255,255,0.82);
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Bottom leaf: compact, no avatar */
+.leaf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.leafText {
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 1.15;
+  white-space: normal;
+  word-break: break-word;
+  color: #fff;
+}
+
+/* Link hint shown on hover */
+.linkHint {
+  margin-top: 4px;
+  font-size: 8.5px;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.linkHintCenter {
+  margin-top: 3px;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.linkHintLeaf {
+  font-size: 10px;
+  margin-top: 2px;
+}

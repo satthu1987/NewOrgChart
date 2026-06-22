@@ -1,92 +1,33 @@
-import * as React from 'react';
-import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import {
-  type IPropertyPaneConfiguration,
+  BaseClientSideWebPart,
+  IPropertyPaneConfiguration,
   PropertyPaneTextField
-} from '@microsoft/sp-property-pane';
-import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import { IReadonlyTheme } from '@microsoft/sp-component-base';
-
-import * as strings from 'OrgChartWebPartStrings';
-import OrgChart from './components/OrgChart';
-import { IOrgChartProps } from './components/IOrgChartProps';
+} from '@microsoft/sp-webpart-base';
+import * as React from 'react';
+import * as ReactDom from 'react-dom';
+import OrgChartContainer from './components/OrgChartContainer';
+import { initSp } from './services/spService';
 
 export interface IOrgChartWebPartProps {
-  description: string;
+  usListName: string;   
+  vnListName: string;
 }
 
 export default class OrgChartWebPart extends BaseClientSideWebPart<IOrgChartWebPartProps> {
-
-  private _isDarkTheme: boolean = false;
-  private _environmentMessage: string = '';
+  public async onInit(): Promise<void> {
+    await super.onInit();
+    // initialize PnPjs (v3) SPFx middleware
+    initSp(this.context);
+  }
 
   public render(): void {
-    const element: React.ReactElement<IOrgChartProps> = React.createElement(
-      OrgChart,
-      {
-        description: this.properties.description,
-        isDarkTheme: this._isDarkTheme,
-        environmentMessage: this._environmentMessage,
-        hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
-      }
-    );
-
-    ReactDom.render(element, this.domElement);
-  }
-
-  protected onInit(): Promise<void> {
-    return this._getEnvironmentMessage().then(message => {
-      this._environmentMessage = message;
+   this.domElement.innerHTML = `<div id="orgChartRoot"></div>`;
+    const element = React.createElement(OrgChartContainer, {
+      usListName: this.properties.usListName || 'OrgChart_US',
+      vnListName: this.properties.vnListName || 'OrgChart_VN',
     });
-  }
-
-
-
-  private _getEnvironmentMessage(): Promise<string> {
-    if (!!this.context.sdks.microsoftTeams) { // running in Teams, office.com or Outlook
-      return this.context.sdks.microsoftTeams.teamsJs.app.getContext()
-        .then(context => {
-          let environmentMessage: string = '';
-          switch (context.app.host.name) {
-            case 'Office': // running in Office
-              environmentMessage = this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentOffice : strings.AppOfficeEnvironment;
-              break;
-            case 'Outlook': // running in Outlook
-              environmentMessage = this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentOutlook : strings.AppOutlookEnvironment;
-              break;
-            case 'Teams': // running in Teams
-            case 'TeamsModern':
-              environmentMessage = this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentTeams : strings.AppTeamsTabEnvironment;
-              break;
-            default:
-              environmentMessage = strings.UnknownEnvironment;
-          }
-
-          return environmentMessage;
-        });
-    }
-
-    return Promise.resolve(this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentSharePoint : strings.AppSharePointEnvironment);
-  }
-
-  protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
-    if (!currentTheme) {
-      return;
-    }
-
-    this._isDarkTheme = !!currentTheme.isInverted;
-    const {
-      semanticColors
-    } = currentTheme;
-
-    if (semanticColors) {
-      this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
-      this.domElement.style.setProperty('--link', semanticColors.link || null);
-      this.domElement.style.setProperty('--linkHovered', semanticColors.linkHovered || null);
-    }
-
+    ReactDom.render(element, this.domElement.querySelector('#orgChartRoot'));
   }
 
   protected onDispose(): void {
@@ -101,16 +42,19 @@ export default class OrgChartWebPart extends BaseClientSideWebPart<IOrgChartWebP
     return {
       pages: [
         {
-          header: {
-            description: strings.PropertyPaneDescription
-          },
+          header: { description: 'Org Chart settings' },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: 'Source',
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                })
+              PropertyPaneTextField('usListName', {
+                label: 'US Org Chart List Name',
+                value: 'OrgChart_US'
+              }),
+              PropertyPaneTextField('vnListName', {
+                label: 'VN Org Chart List Name',
+                value: 'OrgChart_VN'
+              }),
               ]
             }
           ]
