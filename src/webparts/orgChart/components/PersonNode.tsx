@@ -18,9 +18,9 @@ const ROLE_COLORS_VN: Record<string, string> = {
 
 const ROLE_COLORS_US: Record<string, string> = {
   "Vice President": "#404040",
-  "Es Operations": "#f5b24e",
-  "Professional Services": "#E8743B",
-  "Engineering Services": "#E8743B",
+  "Es Operations": "#f0a65a",
+  "Professional Services": "#f4883d",
+  "Engineering Services": "#f4883d",
 };
 
 function initials(name?: string) {
@@ -36,10 +36,11 @@ const PersonNode: React.FC<PersonNodeProps> = ({ activeTab, node, globalMaxDepth
   const [hovered, setHovered] = React.useState(false);
 
   const ROLE_COLORS = activeTab === 'us' ? ROLE_COLORS_US : ROLE_COLORS_VN;
-  const bg = ROLE_COLORS[node.role || ""] ?? (activeTab === 'us' ? "#f0a030" : "#888");
+  const bg = ROLE_COLORS[node.role || ""] ?? (activeTab === 'us' ? "#f0a65a" : "#888");
   const depth = node.depth ?? 1;
   const isSection1 = depth <= 4 && !node.isleaf;
-  const isLeafDepth = node.isleaf;//depth >= globalMaxDepth || node.isleaf;
+  const isSection2= node.isleaf && node.showphoto;
+  const isLeafDepth = node.isleaf && !node.showphoto;//depth >= globalMaxDepth || node.isleaf;
 
   const handleClick = () => {
     if (node.pageurl && node.pageurl.trim() !== "") {
@@ -65,6 +66,13 @@ const PersonNode: React.FC<PersonNodeProps> = ({ activeTab, node, globalMaxDepth
     onMouseLeave: () => setHovered(false),
     onClick: handleClick,
   };
+
+  // 1. Check if the text exists, then split it by comma and clean up the spaces
+      const textString = node.name || ""; // or whatever field holds "Engineering CAD, Data Analysis..."
+      const textLines = textString.split(',').map((line: string) => line.trim());
+      console.log(textLines);
+      const LEAF_W = 80;
+      const LEAF_H = 120;
 
   // Section 1: wide card — avatar left, name + jobTitle right
   if (isSection1) {
@@ -93,7 +101,7 @@ const PersonNode: React.FC<PersonNodeProps> = ({ activeTab, node, globalMaxDepth
   }
 
   // Section 2: square card — avatar top, name + jobTitle below
-  if (!isLeafDepth) {
+  if (!isLeafDepth || isSection2) {
     return (
       <div className={styles.card} style={cardStyle} {...hoverProps}>
         <div className={styles.section2}>
@@ -117,13 +125,33 @@ const PersonNode: React.FC<PersonNodeProps> = ({ activeTab, node, globalMaxDepth
       </div>
     );
   }
+  
 
   // Bottom leaf: compact, no avatar
   return (
-    <div className={styles.card} style={{ background: bg }}>
+    <div
+      className={styles.card}
+      style={
+        node.name === "ESVN Operations"
+          ? { ...cardStyle, background: "#1f6b5d" }
+          : cardStyle
+      }
+    >
+      <foreignObject 
+  x={-LEAF_W / 2} 
+  y={0} 
+  width={LEAF_W} 
+  height={LEAF_H}
+>
       <div className={styles.leaf}>
-        <div className={styles.leafText}>{node.name}</div>
+        {/* <div className={styles.leafText}>{node.name}</div> */}
+          {textLines.map((line: string, index: number) => (
+            <span key={index} className={styles.leafText}>
+              {line}
+            </span>
+          ))}
       </div>
+      </foreignObject>
     </div>
   );
 };

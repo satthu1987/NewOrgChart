@@ -16,6 +16,7 @@ export interface TreeNode {
   isOriginalLeaf?: boolean;  // true for actual data leaves
   isleaf?:boolean;
   pageurl?:string;
+  showphoto?:boolean;
 }
 
 export function buildTreeData(items: Array<any>) {
@@ -36,6 +37,7 @@ export function buildTreeData(items: Array<any>) {
       isOriginalLeaf: false,
       isleaf:it.IsLeaf,
       pageurl:it.PageURL ?? it.PageUrl ?? '',
+      showphoto:it.ShowPhoto,
     });
   }
 
@@ -88,6 +90,7 @@ export function buildTreeData(items: Array<any>) {
             isOriginalLeaf: false,
             isleaf:n.isleaf,
             pageurl:n.pageurl,
+            showphoto:n.showphoto
           };
         }
         return wrapper;

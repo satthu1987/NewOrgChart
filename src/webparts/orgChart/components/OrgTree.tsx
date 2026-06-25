@@ -32,8 +32,8 @@ const LEGEND_VN = [
 ];
 
 const LEGEND_US = [
-  { label: "Internal Support",              color: "#f5a623" },
-  { label: "Sales Support",                 color: "#e86820" },
+  { label: "Internal Support",              color: "#f0a65a" },
+  { label: "Sales Support",                 color: "#f4883d" },
 ];
 
 
@@ -118,7 +118,7 @@ const OrgTree: React.FC<OrgTreeProps> = ({ items,activeTab='us' }) => {
           strokeWidth={1}  
         />
       )}
-        <g transform="translate(0, 20)" style={{ cursor: "pointer" }}>
+        <g transform={nodeDatum.name==="Andrew Hunt" ? "translate(0, 0)" : "translate(0, 20)"} style={{ cursor: "pointer" }}>
           <foreignObject
             x={-w / 2}
             y={0}

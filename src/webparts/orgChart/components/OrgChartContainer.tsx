@@ -12,7 +12,7 @@ interface OrgChartContainerProps {
 type TabKey = 'us' | 'vn';
 
 const OrgChartContainer: React.FC<OrgChartContainerProps> = ({ usListName, vnListName }) => {
-  const [activeTab, setActiveTab] = React.useState<TabKey>('vn');
+  const [activeTab, setActiveTab] = React.useState<TabKey>('us');
   const [usItems, setUsItems] = React.useState<IOrgItem[]>([]);
   const [vnItems, setVnItems] = React.useState<IOrgItem[]>([]);
   const [usLoading, setUsLoading] = React.useState(false);
@@ -59,7 +59,8 @@ const OrgChartContainer: React.FC<OrgChartContainerProps> = ({ usListName, vnLis
         PhotoURL: photoUrl,
         SortOrder: it.SortOrder ?? 0,
         PageURL: it.PageUrl ?? it.PageURL ?? '',
-        IsLeaf:it.IsLeaf
+        IsLeaf:it.IsLeaf,
+        ShowPhoto:it.ShowPhoto
       } as IOrgItem;
     });
   };

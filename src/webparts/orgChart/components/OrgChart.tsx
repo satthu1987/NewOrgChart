@@ -27,7 +27,7 @@ const OrgChartApp: React.FC<IOrgChartAppProps> = ({ listName, context }) => {
         const sp = spfi().using(SPFx(context));
         const raw = await sp.web.lists.getByTitle(listName)
           .items
-          .select('Id', 'Title', 'JobTitle', 'ManagerId', 'Branch', 'PhotoUrl', 'SortOrder', 'PageUrl','IsLeaf')
+          .select('Id', 'Title', 'JobTitle', 'ManagerId', 'Branch', 'PhotoUrl', 'SortOrder', 'PageUrl','IsLeaf','ShowPhoto')
           .orderBy('SortOrder', true)();
         if (mounted) {
           setItems(raw as IOrgItem[]);

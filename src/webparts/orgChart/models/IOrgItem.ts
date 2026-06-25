@@ -8,4 +8,5 @@ export interface IOrgItem {
     SortOrder?: number;
     PageUrl?: string;
     IsLeaf?:boolean;
+    ShowPhoto?:boolean;
   }
