@@ -15,25 +15,27 @@ export interface OrgTreeProps {
 // Card size constants — adjust these to tune the layout
 const S1_W = 250;   // Section 1 (top rows): wide card
 const S1_H = 80;
-const S2_W = 80;   // Section 2 (middle rows): square card
-const S2_H = 120;
-const LEAF_W = 80; // Bottom leaf row: compact card
-const LEAF_H = 120;
+const S2_W = 90;   // Section 2 (middle rows): square card
+const S2_H = 140;
+const LEAF_W = 90; // Bottom leaf row: compact card
+const LEAF_H = 140;
 
 const S1_MAX_DEPTH = 4; // depths 1-3 use Section 1 style
 
 
 const LEGEND_VN = [
   { label: "Leadership Team",            color: "#3b3b3b" },
-  { label: "Internal Support",           color: "#f0a65a" },
+  { label: "Internal Support",           color: "#4e7296" },
   { label: "Sales Support",              color: "#f4883d" },
   { label: "Digital Technology Support", color: "#37b7a8" },
   { label: "Back Office",                color: "#1f6b5d" },
 ];
 
 const LEGEND_US = [
-  { label: "Internal Support",              color: "#f0a65a" },
+  { label: "Leadership Team",            color: "#3b3b3b" },
+  { label: "Internal Support",              color: "#4e7296" },
   { label: "Sales Support",                 color: "#f4883d" },
+  
 ];
 
 
@@ -113,12 +115,12 @@ const OrgTree: React.FC<OrgTreeProps> = ({ items,activeTab='us' }) => {
           x1={0} 
           y1={0} 
           x2={0} 
-          y2={20} 
+          y2={10} 
           stroke="#d0d0d0" 
           strokeWidth={1}  
         />
       )}
-        <g transform={nodeDatum.name==="Andrew Hunt" ? "translate(0, 0)" : "translate(0, 20)"} style={{ cursor: "pointer" }}>
+        <g transform={nodeDatum.name==="Andrew Hunt" ? "translate(0, 0)" : "translate(0, 10)"} style={{ cursor: "pointer" }}>
           <foreignObject
             x={-w / 2}
             y={0}
@@ -153,7 +155,7 @@ const OrgTree: React.FC<OrgTreeProps> = ({ items,activeTab='us' }) => {
         draggable={true}          // re-enable pan/drag
         pathFunc="elbow"
         separation={{ siblings: 0.34, nonSiblings: 0.5 }}   // much tighter
-        nodeSize={{ x: S1_W + 20, y: S1_H + 140 }}
+        nodeSize={{ x: S1_W + 20, y: S1_H + 160 }}
         scaleExtent={{ min: 1, max: 1 }}                 // allow zoom out to 30%
         initialDepth={undefined}
         depthFactor={150}

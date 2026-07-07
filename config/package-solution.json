@@ -1,8 +1,8 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "org-chart-client-side-solution",
-    "id": "daa00fe2-f319-49b2-ad2b-67259e89f449",
+    "name": "org-chart-client-side-solution-ver2",
+    "id": "410cb071-cd96-4de6-aabb-f24eb8668159",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
@@ -27,14 +27,14 @@
     },
     "features": [
       {
-        "title": "org-chart Feature",
+        "title": "ORG CHART FEARTURE",
         "description": "The feature that activates elements of the org-chart solution.",
-        "id": "83fda2a0-5f04-40ac-a2a0-ed3e2963e6d2",
+        "id": "b5f69e93-5568-4ae8-b6e9-422085b2c467",
         "version": "1.0.0.0"
       }
     ]
   },
   "paths": {
-    "zippedPackage": "solution/org-chart.sppkg"
+    "zippedPackage": "solution/org-chart-ver2.sppkg"
   }
 }

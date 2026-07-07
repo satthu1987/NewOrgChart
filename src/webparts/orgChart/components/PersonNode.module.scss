@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   color: #fff;
-  border-radius: 8px;
+  border-radius: 5px;
   overflow: hidden;
   font-family: "Segoe UI", Arial, sans-serif;
   box-sizing: border-box;
@@ -67,6 +67,22 @@
 }
 
 /* Section 2: square card — avatar top, text below */
+/* White card for Section 2 */
+.cardWhite {
+  width: 100%;
+  height: 100%;
+  color: #333;
+  border-radius: 5px;
+  overflow: hidden;
+  font-family: "Segoe UI", Arial, sans-serif;
+  box-sizing: border-box;
+  background: #f4f4f4 !important;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;   /* ← push accentBar to bottom */
+}
+
 .section2 {
   display: flex;
   flex-direction: column;
@@ -75,6 +91,10 @@
   height: 100%;
   gap: 5px;
   box-sizing: border-box;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  overflow: hidden;
+  min-height: 0;
 }
 
 .avatarTop { width: 52px; height: 52px; flex: 0 0 52px; }
@@ -118,6 +138,35 @@
   word-break: break-word;
 }
 
+.titleCenter2 {
+  margin-top: 2px;
+  font-size: 8.5px;
+  color: rgba(0, 0, 0, 0.82);
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Two-color accent bar at bottom of Section 2 card */
+.accentBar {
+  display: flex;
+  flex-direction: row;
+  height: 6px;
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 0 0 5px 5px;
+  overflow: hidden;
+  flex: 0 0 6px;
+}
+
+.accentLeft {
+  flex: 1;
+  height: 100%;
+}
+
+.accentRight {
+  flex: 1;
+  height: 100%;
+}
 /* Bottom leaf: compact, no avatar */
 .leaf {
   display: flex;
@@ -150,10 +199,27 @@
   white-space: nowrap;
 }
 
+.linkHint2 {
+  margin-top: 4px;
+  font-size: 8.5px;
+  color: rgba(0, 0, 0, 0.9);
+  font-style: italic;
+  white-space: nowrap;
+}
+
 .linkHintCenter {
   margin-top: 3px;
   font-size: 8px;
   color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.linkHintCenter2 {
+  margin-top: 3px;
+  font-size: 8px;
+  color: rgba(0, 0, 0, 0.9);
   font-style: italic;
   text-align: center;
   white-space: nowrap;

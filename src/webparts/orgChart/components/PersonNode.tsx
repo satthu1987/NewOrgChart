@@ -10,7 +10,7 @@ export interface PersonNodeProps {
 
 const ROLE_COLORS_VN: Record<string, string> = {
   "Leadership Team": "#404040",
-  "Internal Support": "#f0a65a",
+  "Internal Support": "#4e7296",
   "Sales Support": "#f4883d",
   "Digital Technology Support": "#37b7a8",
   "Back Office": "#1f6b5d",
@@ -18,7 +18,7 @@ const ROLE_COLORS_VN: Record<string, string> = {
 
 const ROLE_COLORS_US: Record<string, string> = {
   "Vice President": "#404040",
-  "Es Operations": "#f0a65a",
+  "ES Operations": "#4e7296",
   "Professional Services": "#f4883d",
   "Engineering Services": "#f4883d",
 };
@@ -71,13 +71,13 @@ const PersonNode: React.FC<PersonNodeProps> = ({ activeTab, node, globalMaxDepth
       const textString = node.name || ""; // or whatever field holds "Engineering CAD, Data Analysis..."
       const textLines = textString.split(',').map((line: string) => line.trim());
       console.log(textLines);
-      const LEAF_W = 80;
-      const LEAF_H = 120;
+      const LEAF_W = 90;
+      const LEAF_H = 140;
 
   // Section 1: wide card — avatar left, name + jobTitle right
   if (isSection1) {
     return (
-      <div className={styles.card} style={cardStyle} {...hoverProps}>
+      <div className={["Anh Pham"].includes(node.name) ? styles.cardWhite : styles.card} style={cardStyle} {...hoverProps}>
         <div className={styles.section1}>
           <div className={styles.avatarWrap}>
             {node.photo ? (
@@ -89,13 +89,19 @@ const PersonNode: React.FC<PersonNodeProps> = ({ activeTab, node, globalMaxDepth
           <div className={styles.info}>
             <div className={styles.name}>{node.name}</div>
             {node.title && node.title !== node.name && (
-              <div className={styles.title}>{node.title}</div>
+              <div className={["Anh Pham"].includes(node.name) ? styles.titleCenter2 : styles.title}>{node.title}</div>
             )}
             {hasLink && hovered && (
-              <div className={styles.linkHint}>🔗 View profile</div>
+              <div className={["Anh Pham"].includes(node.name) ? styles.linkHint2 : styles.linkHint}>🔗 View profile</div>
             )}
           </div>
         </div>
+         {["Anh Pham"].includes(node.name) && (
+          <div className={styles.accentBar}>
+            <div className={styles.accentLeft} style={{ background: "#4e7296" }} />
+            <div className={styles.accentRight} style={{ background: "#f4883d" }} />
+          </div>
+        )}
       </div>
     );
   }
@@ -103,7 +109,7 @@ const PersonNode: React.FC<PersonNodeProps> = ({ activeTab, node, globalMaxDepth
   // Section 2: square card — avatar top, name + jobTitle below
   if (!isLeafDepth || isSection2) {
     return (
-      <div className={styles.card} style={cardStyle} {...hoverProps}>
+      <div className={["Anh Pham", "Tri Nguyen", "Ha Dinh","Vu Tran","Giang Vo"].includes(node.name) ? styles.cardWhite : styles.card} style={cardStyle} {...hoverProps}>
         <div className={styles.section2}>
           <div className={styles.avatarTop}>
             {node.photo ? (
@@ -115,13 +121,33 @@ const PersonNode: React.FC<PersonNodeProps> = ({ activeTab, node, globalMaxDepth
           <div className={styles.infoCenter}>
             <div className={styles.nameCenter}>{node.name}</div>
             {node.title && node.title !== node.name && (
-              <div className={styles.titleCenter}>{node.title}</div>
+              <div className={["Anh Pham", "Tri Nguyen", "Ha Dinh","Vu Tran","Giang Vo"].includes(node.name) ? styles.titleCenter2 : styles.titleCenter}>
+                {node.title}
+              </div>
             )}
             {hasLink && hovered && (
-              <div className={styles.linkHintCenter}>🔗 View profile</div>
+              <div className={["Anh Pham", "Tri Nguyen", "Ha Dinh","Vu Tran","Giang Vo"].includes(node.name) ? styles.linkHintCenter2 : styles.linkHintCenter}>
+                🔗 View profile
+              </div>
             )}
           </div>
         </div>
+        {["Anh Pham", "Tri Nguyen", "Ha Dinh"].includes(node.name) && (
+          <div className={styles.accentBar}>
+            <div className={styles.accentLeft} style={{ background: "#4e7296" }} />
+            <div className={styles.accentRight} style={{ background: "#f4883d" }} />
+          </div>
+        )}
+        {["Giang Vo"].includes(node.name) && (
+          <div className={styles.accentBar}>
+            <div className={styles.accentRight} style={{ background: "#f4883d" }} />
+          </div>
+        )}
+        {["Vu Tran"].includes(node.name) && (
+          <div className={styles.accentBar}>
+            <div className={styles.accentRight} style={{ background: "#4e7296" }} />
+          </div>
+        )}
       </div>
     );
   }
@@ -134,6 +160,8 @@ const PersonNode: React.FC<PersonNodeProps> = ({ activeTab, node, globalMaxDepth
       style={
         node.name === "ESVN Operations"
           ? { ...cardStyle, background: "#1f6b5d" }
+          : node.name === "Internal Support"
+          ? { ...cardStyle, background: "#4e7296" }
           : cardStyle
       }
     >
